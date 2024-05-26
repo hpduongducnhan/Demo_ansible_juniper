@@ -1,0 +1,5 @@
+---
+- name: common -- show status after execution
+  command: "{{ show_status_after | default('') }}"
+  register: res_show_status_after
+  

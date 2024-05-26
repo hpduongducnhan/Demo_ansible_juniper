@@ -1,0 +1,5 @@
+---
+- name: common -- show configugration after execution
+  command: "{{ show_conf_after | default('') }}"
+  register: res_show_conf_after 
+  

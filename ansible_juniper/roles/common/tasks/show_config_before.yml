@@ -1,0 +1,5 @@
+---
+- name: common -- show configugration before
+  command: "{{ show_conf_before | default('') }}"
+  register: res_show_conf_before 
+  

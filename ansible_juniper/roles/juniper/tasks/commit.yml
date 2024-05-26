@@ -1,0 +1,15 @@
+---
+- name: Check correctness of commit configuration
+  junos_config:
+    check_commit: true
+  register: res_commit_check
+
+- name: Commit configuration
+  junos_config:
+    confirm_commit: true
+  when: res_commit_check.changed
+  register: res_commit
+
+- name: Show commit results
+  debug:
+    msg: "{{ res_commit }}"

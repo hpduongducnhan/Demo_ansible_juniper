@@ -1,0 +1,17 @@
+ 
+tests/playbook.retry
+tests/.cache
+__pycache__
+.pytest_cache
+.molecule
+.cache
+
+.DS_STore
+local_lib/
+
+*.iml
+.idea
+.project
+
+*.pyc
+**/.vscode

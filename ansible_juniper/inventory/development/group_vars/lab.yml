@@ -1,0 +1,7 @@
+---
+ansible_port: 22
+ansible_user: lab
+ansible_password: lab123
+ansible_netconf_username: lab
+ansible_netconf_password: lab123
+ansible_network_os: junos

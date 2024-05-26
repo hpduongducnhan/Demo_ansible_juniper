@@ -1,0 +1,4 @@
+---
+vlan_id: 102
+vlan_name: "VLAN102"
+interface: "xe-0/0/4"

@@ -1,0 +1,52 @@
+---
+- name: Add interface Vlan
+  hosts: lab  # group devices
+  connection: netconf
+  gather_facts: true
+  tasks:
+    - name: Load vars from file
+      ansible.builtin.include_vars: ./pb_add_interface_vlan/vars.yml
+
+    - name: Debug load vars
+      ansible.builtin.debug:
+        msg: "{{ vlan_id }} - {{ vlan_name }} - {{ interface }}"
+
+    - name: Get configuration before
+      ansible.builtin.include_tasks: ../roles/juniper/tasks/show_config_before.yml
+
+    - name: Create Vlan if it does not exist
+      junipernetworks.junos.junos_vlans:
+        config:
+          - name: "{{ vlan_name }}"
+            vlan_id: "{{ vlan_id }}"
+        state: merged
+      register: res_vlan
+
+    - name: Get available interfaces
+      junipernetworks.junos.junos_command:
+        commands:
+          - show interfaces terse
+      register: interfaces_terse
+
+    - name: Check if Interface is existed
+      ansible.builtin.set_fact:
+        interface_existed: "{{ interfaces_terse.stdout_lines[0] | select('search', 'xe|ge') | select('search', interface) | list | count > 0 }}"
+
+    - name: Notify inteface is NOT available
+      when: not interface_existed
+      ansible.builtin.fail:
+        msg: "Interface is not existed, Not allowed to configure"
+
+    - name: Add interface to Vlan
+      junipernetworks.junos.junos_l2_interfaces:
+        config:
+          - name: "{{ interface }}"
+            unit: 0
+            access:
+              vlan: "{{ vlan_name }}"
+        state: merged
+      when: interface_existed
+      register: res_add_interface_vlan
+
+    - name: Get configuration after
+      ansible.builtin.include_tasks: ../roles/juniper/tasks/show_config_after.yml

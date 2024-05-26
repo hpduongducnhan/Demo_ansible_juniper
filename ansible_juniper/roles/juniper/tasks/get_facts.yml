@@ -1,0 +1,8 @@
+---
+- name: Gather device facts for add interface vlan
+  junipernetworks.junos.junos_facts:
+    gather_network_resources:
+      - interfaces
+      - vlans
+    available_network_resources: true
+  register: res_device_facts

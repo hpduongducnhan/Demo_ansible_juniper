@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "ansible-juniper"
+version = "0.1.0"
+description = ""
+authors = ["NhanDD <hp.duongducnhan@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+yamllint = "^1.35.1"
+ansible = "^9.6.0"
+ncclient = "^0.6.15"
+xmltodict = "^0.13.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,9 @@
+---
+- name: Get running configuration After executing the playbook
+  junipernetworks.junos.command:
+    commands: show configuration | no-more
+  register: res_show_conf_after
+
+# - name: Debug
+#   ansible.builtin.debug:
+#     msg: "{{ res_show_conf_after }}"

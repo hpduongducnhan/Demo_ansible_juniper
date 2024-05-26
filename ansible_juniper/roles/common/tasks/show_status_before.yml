@@ -1,0 +1,5 @@
+---
+- name: common -- show status before execution
+  command: "{{ show_status_before | default('') }}"
+  register: res_show_status_before
+  
